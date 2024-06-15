@@ -23,6 +23,21 @@ class _CurrencyConverterState extends State<CurrencyConveterPage> {
   //Global variable to have inputs from all the textinput.
   final TextEditingController textEditingController = TextEditingController();
 
+  //Lets create a function to perform the calculation
+  void convert() {
+    setState(() {
+      result = double.parse(textEditingController.text) * 128.50;
+    });
+  }
+
+  //Dispose function
+  @override
+  void dispose() {
+    //implement dispose
+    textEditingController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +76,7 @@ class _CurrencyConverterState extends State<CurrencyConveterPage> {
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                '\$ ${result.toString()}',
+                '\$ ${result.toStringAsFixed(2)}',
                 style: TextStyle(fontSize: 48, fontWeight: FontWeight.w600),
               ),
             ),
@@ -85,10 +100,7 @@ class _CurrencyConverterState extends State<CurrencyConveterPage> {
               padding: const EdgeInsets.all(10.0),
               child: TextButton(
                 onPressed: () {
-                  setState(() {
-                    result = double.parse(textEditingController.text) * (128.50)
-                      ..toStringAsFixed(2);
-                  });
+                  convert();
                 },
                 style: ButtonStyle(
                   backgroundColor:
